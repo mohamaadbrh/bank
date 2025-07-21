@@ -10,22 +10,41 @@ CONFIG += c++17
 
 SOURCES += \
     Logindialog.cpp \
+    addcustomerdialog.cpp \
     adminwindow.cpp \
+    editprofiledialog.cpp \
     main.cpp \
     mainwindow.cpp \
-    userwindow.cpp
+    removecustomerdialog.cpp \
+    user.cpp \
+    userwindow.cpp \
+    viewaccountsdialog.cpp \
+    viewcustomersdialog.cpp
 
 HEADERS += \
+    Admin.h \
+    LinkedList.h \
     Logindialog.h \
+    User.h \
+    addcustomerdialog.h \
     adminwindow.h \
+    editprofiledialog.h \
     mainwindow.h \
-    userwindow.h
+    removecustomerdialog.h \
+    userwindow.h \
+    viewaccountsdialog.h \
+    viewcustomersdialog.h
 
 FORMS += \
     Logindialog.ui \
+    addcustomerdialog.ui \
     adminwindow.ui \
+    editprofiledialog.ui \
     mainwindow.ui \
-    userwindow.ui
+    removecustomerdialog.ui \
+    userwindow.ui \
+    viewaccountsdialog.ui \
+    viewcustomersdialog.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
