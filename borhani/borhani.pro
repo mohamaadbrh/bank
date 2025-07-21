@@ -19,7 +19,8 @@ SOURCES += \
     user.cpp \
     userwindow.cpp \
     viewaccountsdialog.cpp \
-    viewcustomersdialog.cpp
+    viewcustomersdialog.cpp \
+    viewmyaccountdialog.cpp
 
 HEADERS += \
     Admin.h \
@@ -33,7 +34,8 @@ HEADERS += \
     removecustomerdialog.h \
     userwindow.h \
     viewaccountsdialog.h \
-    viewcustomersdialog.h
+    viewcustomersdialog.h \
+    viewmyaccountdialog.h
 
 FORMS += \
     Logindialog.ui \
@@ -44,7 +46,8 @@ FORMS += \
     removecustomerdialog.ui \
     userwindow.ui \
     viewaccountsdialog.ui \
-    viewcustomersdialog.ui
+    viewcustomersdialog.ui \
+    viewmyaccountdialog.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
