@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>559</width>
-    <height>317</height>
+    <height>348</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -30,7 +30,7 @@
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="pushButton_5">
+     <widget class="QPushButton" name="btnEditProfile">
       <property name="text">
        <string>Edit Profile</string>
       </property>
@@ -47,6 +47,13 @@
      <widget class="QPushButton" name="btnViewAllAccounts">
       <property name="text">
        <string>View All Accounts</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="btnExit">
+      <property name="text">
+       <string>exit</string>
       </property>
      </widget>
     </item>
