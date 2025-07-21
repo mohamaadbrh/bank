@@ -12,6 +12,7 @@ SOURCES += \
     Logindialog.cpp \
     addcustomerdialog.cpp \
     adminwindow.cpp \
+    cardtocarddialog.cpp \
     editprofiledialog.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -29,6 +30,7 @@ HEADERS += \
     User.h \
     addcustomerdialog.h \
     adminwindow.h \
+    cardtocarddialog.h \
     editprofiledialog.h \
     mainwindow.h \
     removecustomerdialog.h \
@@ -41,6 +43,7 @@ FORMS += \
     Logindialog.ui \
     addcustomerdialog.ui \
     adminwindow.ui \
+    cardtocarddialog.ui \
     editprofiledialog.ui \
     mainwindow.ui \
     removecustomerdialog.ui \
