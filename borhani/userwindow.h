@@ -1,22 +1,32 @@
+// dialogs/UserWindow.h
 #ifndef USERWINDOW_H
 #define USERWINDOW_H
 
 #include <QMainWindow>
+#include "ui_UserWindow.h"
+#include "User.h"
+#include "LinkedList.h"
 
-namespace Ui {
-class UserWindow;
-}
+using namespace std;
 
-class UserWindow : public QMainWindow
-{
+class UserWindow : public QMainWindow {
     Q_OBJECT
 
 public:
-    explicit UserWindow(QWidget *parent = nullptr);
-    ~UserWindow();
+    explicit UserWindow(User* user,
+                        LinkedList<User>* users,
+                        QWidget* parent = nullptr);
+
+private slots:
+    void on_btnViewMyAccounts_clicked();
+    void on_btnCardToCard_clicked();
+    void on_btnEditProfile_clicked();
+    void on_btnExit_clicked();
 
 private:
-    Ui::UserWindow *ui;
+    Ui::UserWindow    ui;
+    User*             m_currentUser;
+    LinkedList<User>* m_userList;
 };
 
 #endif // USERWINDOW_H
