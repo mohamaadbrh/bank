@@ -3,6 +3,8 @@
 #include <QDate>
 #include <cstdlib>
 
+using namespace std;
+
 CardToCardDialog::CardToCardDialog(User* currentUser,
                                    LinkedList<User>* users,
                                    QWidget* parent)
@@ -14,12 +16,13 @@ CardToCardDialog::CardToCardDialog(User* currentUser,
 }
 
 void CardToCardDialog::on_btnTransfer_clicked() {
+
     string srcCard   = ui.lineEdit->text().toStdString();
     QString expStr   = ui.lineEdit_2->text();
     string cvv2      = ui.lineEdit_3->text().toStdString();
     string dstCard   = ui.lineEdit_4->text().toStdString();
     long long amount = ui.lineEdit_5->text().toLongLong();
-    string pass2     = ui.lineEdit_6->text().toStdString();
+    string pass2Input= ui.lineEdit_6->text().toStdString();
 
 
     if (m_currentUser->getCardNumber() != srcCard) {
@@ -42,6 +45,7 @@ void CardToCardDialog::on_btnTransfer_clicked() {
         QMessageBox::warning(this, "Error", "Destination card not found.");
         return;
     }
+
     ui.labelDestName->setText(
         QString::fromStdString(dst->getFirstName() + " " + dst->getLastName())
         );
@@ -51,27 +55,34 @@ void CardToCardDialog::on_btnTransfer_clicked() {
         return;
     }
 
+    string otp;
     if (amount > 100000LL) {
-        string otp = generateOtp();
-        QMessageBox::information(this, "OTP", QString::fromStdString(otp));
-        if (pass2 != otp) {
+
+        otp = generateOtp();
+        QMessageBox::information(
+            this,
+            "One-Time Password",
+            QString("Your dynamic pass2 is: %1")
+                .arg(QString::fromStdString(otp))
+            );
+        if (pass2Input != otp) {
             QMessageBox::warning(this, "Error", "Invalid dynamic pass2.");
             return;
         }
     } else {
-        if (pass2 != m_currentUser->getPass2Static()) {
-            QMessageBox::warning(this, "Error", "Invalid pass2.");
+
+        if (pass2Input != m_currentUser->getPass2Static()) {
+            QMessageBox::warning(this, "Error", "Invalid static pass2.");
             return;
         }
     }
-
     if (m_currentUser->getBalance() < amount) {
         QMessageBox::warning(this, "Error", "Insufficient balance.");
         return;
     }
 
-    double fee = amount * 0.0001;  // 0.01%
-    long long net = amount - (long long)fee;
+    double fee     = amount * 0.0001;  // 0.01%
+    long long net  = amount - (long long)fee;
     m_currentUser->adjustBalance(-amount);
     dst->adjustBalance(net);
 
@@ -85,8 +96,7 @@ void CardToCardDialog::on_btnCancel_clicked() {
 
 bool CardToCardDialog::validateExpiry(const QString& exp) {
     QDate today = QDate::currentDate();
-
-    QDate d = QDate::fromString(exp, "yyyy/MM");
+    QDate d     = QDate::fromString(exp, "yyyy/MM");
     return d.isValid() && d > today;
 }
 
@@ -97,7 +107,6 @@ User* CardToCardDialog::findByCard(const string& cardNo) {
 }
 
 string CardToCardDialog::generateOtp(int length) {
-otp:
     string otp;
     otp.reserve(length);
     for (int i = 0; i < length; ++i)
