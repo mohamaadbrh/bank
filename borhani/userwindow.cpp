@@ -4,15 +4,19 @@
 #include "CardToCardDialog.h"
 #include "EditProfile2Dialog.h"
 #include "LoginDialog.h"
+#include "AdminWindow.h"
 
 UserWindow::UserWindow(User* user,
                        LinkedList<User>* users,
+                       Admin* admin,
                        QWidget* parent)
     : QMainWindow(parent)
     , m_currentUser(user)
     , m_userList(users)
+    , m_admin(admin)
 {
     ui.setupUi(this);
+
     connect(ui.btnViewMyAccounts, &QPushButton::clicked,
             this, &UserWindow::on_btnViewMyAccounts_clicked);
     connect(ui.btnCardToCard,     &QPushButton::clicked,
@@ -40,6 +44,16 @@ void UserWindow::on_btnEditProfile_clicked() {
 
 void UserWindow::on_btnExit_clicked() {
     this->close();
-    LoginDialog loginDlg;
-    loginDlg.exec();
+
+    // بازگشت به صفحه لاگین
+    LoginDialog dlg(m_userList, m_admin, this);
+    if (dlg.exec() == QDialog::Accepted) {
+        if (dlg.isAdminLoggedIn()) {
+            auto *w = new AdminWindow(m_admin, m_userList);
+            w->show();
+        } else {
+            auto *w = new UserWindow(dlg.getLoggedInUser(), m_userList, m_admin);
+            w->show();
+        }
+    }
 }

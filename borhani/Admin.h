@@ -18,8 +18,11 @@ public:
           const string& expiryDate,
           const string& cvv2,
           const string& pass2Static,
-          long long balance);
-
+          long long balance)
+        : User(firstName, lastName, nationalCode, age,
+               userName, pass1, cardNumber, expiryDate,
+               cvv2, pass2Static, balance)
+    {}
     bool isAdmin() const override { return true; }
 
 

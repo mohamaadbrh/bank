@@ -1,4 +1,5 @@
 #include "AdminWindow.h"
+#include "userwindow.h"
 #include "AddCustomerDialog.h"
 #include "RemoveCustomerDialog.h"
 #include "ViewCustomersDialog.h"
@@ -50,6 +51,15 @@ void AdminWindow::on_btnEditProfile_clicked() {
 
 void AdminWindow::on_btnExit_clicked() {
     this->close();
-    LoginDialog loginDlg;
-    loginDlg.exec();
+
+    LoginDialog dlg(m_userList, m_admin, this);
+    if (dlg.exec() == QDialog::Accepted) {
+        if (dlg.isAdminLoggedIn()) {
+            auto *w = new AdminWindow(m_admin, m_userList);
+            w->show();
+        } else {
+            auto *w = new UserWindow(dlg.getLoggedInUser(), m_userList, m_admin);
+            w->show();
+        }
+    }
 }
